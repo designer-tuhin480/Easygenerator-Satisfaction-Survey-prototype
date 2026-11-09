@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Learner satisfaction survey · Easygenerator prototype</title>
+<style>
+:root{--bg:#f4f5f7;--pn:#fff;--tx:#1f2430;--mu:#6a7080;--ln:#e1e4ea;--in:#fff;--ro:#eef0f4;--ac:#f26b2a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15161a;--pn:#1e2026;--tx:#eef0f4;--mu:#9aa1b0;--ln:#30343d;--in:#272a32;--ro:#2a2d35;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15161a;--pn:#1e2026;--tx:#eef0f4;--mu:#9aa1b0;--ln:#30343d;--in:#272a32;--ro:#2a2d35;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.hd{display:flex;align-items:center;gap:14px;padding:12px 20px;background:var(--pn);border-bottom:1px solid var(--ln);flex-wrap:wrap}
+.hd .lg{width:120px;aspect-ratio:119/42;background:#fff;border-radius:8px;padding:5px 10px;box-sizing:content-box}
+.hd b{display:block;font-size:15px}.hd small{color:var(--mu)}
+.ha{margin-left:auto;display:flex;gap:8px}
+.bt{background:var(--ac);color:#fff;border:0;border-radius:8px;padding:8px 16px;font-weight:600;cursor:pointer}
+.b2{background:none;border:1px solid var(--ln);border-radius:8px;padding:8px 14px;cursor:pointer}
+.sw{display:flex;align-items:center;gap:8px;font-weight:600;position:relative;cursor:pointer}
+.sw input{position:absolute;opacity:0}
+.sw i{width:38px;height:22px;border-radius:11px;background:var(--mu);position:relative;transition:.2s}
+.sw i::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.2s}
+.sw input:checked+i{background:var(--ac)}.sw input:checked+i::after{left:19px}
+.sw input:focus-visible+i{outline:2px solid var(--ac);outline-offset:2px}
+#ts{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);background:#1f2430;color:#fff;padding:10px 18px;border-radius:8px;opacity:0;transition:.25s;pointer-events:none}
+#ts.on{opacity:1;transform:translate(-50%,0)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hd h1{margin:0;font-size:15px}
+main{max-width:1040px;margin:0 auto;padding:20px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--ln);margin-bottom:20px}
+.tab{background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;padding:10px 16px;font-weight:600;color:var(--mu);cursor:pointer}
+.tab:hover{color:var(--tx)}.tab[aria-selected=true]{color:var(--tx);border-bottom-color:var(--ac)}
+.cd{background:var(--pn);border:1px solid var(--ln);border-radius:12px}
+h2{font-size:16px;font-weight:600;margin:0}
+.sth{padding:16px 24px;border-bottom:1px solid var(--ln)}
+.st{display:grid;grid-template-columns:200px minmax(0,1fr);min-height:440px}
+.nv{list-style:none;margin:0;padding:16px 12px;border-right:1px solid var(--ln);color:var(--mu)}
+.nv li{padding:8px 12px;border-radius:8px}.nv [aria-current]{background:var(--ro);color:var(--tx);font-weight:600}
+.sb{padding:20px 24px;max-width:680px}
+.bar{background:var(--ro);border-radius:8px;padding:10px 14px;font-size:13px;font-weight:600;margin:0 0 18px}
+.ty{display:grid;grid-template-columns:1fr 1fr;gap:10px;border:0;padding:0;margin:18px 0 0}
+.op{display:flex;align-items:center;gap:10px;height:44px;padding:0 14px;border:1px solid var(--ln);border-radius:10px;background:var(--in);font-weight:600;cursor:pointer}
+.op input{width:18px;height:18px;margin:0;accent-color:var(--ac)}
+.op:has(input:checked){border-color:var(--ac);box-shadow:0 0 0 2px #f26b2a33}
+.op:has(input:focus-visible){outline:2px solid var(--ac);outline-offset:2px}
+.inf{display:flex;gap:10px;align-items:flex-start;margin-top:16px;padding:14px;border:1px solid var(--ln);border-radius:10px;background:var(--ro)}
+.inf svg{flex:none;margin-top:1px;color:var(--mu)}.inf p{margin:0}
+.fr{margin-top:16px}.fr label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+.rw{display:flex;gap:8px;align-items:center}
+.mi{flex:1;min-width:0;height:40px;border:1px solid var(--ln);background:var(--in);border-radius:8px;padding:0 12px}
+.ic{flex:none;width:36px;height:36px;border:0;background:none;color:var(--mu);cursor:pointer;border-radius:8px;display:grid;place-items:center}
+.ic:hover:not(:disabled){background:var(--ro);color:var(--tx)}.ic:disabled{opacity:.35;cursor:not-allowed}
+.add{width:100%;height:40px;margin-top:18px;border:1px dashed var(--ln);background:var(--in);border-radius:8px;font-weight:600;cursor:pointer}
+.add:hover:not(:disabled){border-color:var(--ac)}.add:disabled{opacity:.4;cursor:not-allowed}
+.hint{margin:8px 0 0;color:var(--mu);font-size:12px}
+.lp{max-width:720px;margin:0 auto;padding:36px 32px 40px;display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center}
+.lp h2{font-size:18px}.lp p{margin:0}
+[tabindex="-1"]:focus{outline:none}
+.sd{width:512px;max-width:100%}
+.sc{display:grid;grid-template-columns:repeat(10,1fr);gap:8px}
+.sq{position:relative}.sq input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
+.sq span{display:grid;place-items:center;height:44px;border:1px solid var(--ln);border-radius:8px;background:var(--in);font-weight:600;transition:.15s}
+.sq:hover span{border-color:var(--ac)}.sq input:checked+span{background:var(--ac);border-color:var(--ac);color:#fff}
+.sq input:focus-visible+span{outline:2px solid var(--ac);outline-offset:2px}
+.ends{display:flex;justify-content:space-between;margin-top:8px;color:var(--mu);font-size:12px}
+.bg{display:grid;place-items:center;width:64px;height:64px;margin:10px auto 0;border-radius:12px;background:var(--ac);color:#fff;font-size:28px;font-weight:700}
+.lk{background:none;border:0;color:var(--mu);text-decoration:underline;cursor:pointer;padding:4px}
+.ff{width:100%;display:grid;gap:16px;text-align:left}
+.ff label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+.ff textarea{width:100%;min-height:68px;resize:vertical;font:inherit;color:inherit;border:1px solid var(--ln);background:var(--in);border-radius:8px;padding:10px 12px}
+.bt:disabled{opacity:.4;cursor:not-allowed}.lp .bt{min-width:160px;height:42px}
+.ok{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--ac);color:#fff}
+.sm{width:100%;margin:0;text-align:left;display:grid;gap:12px}.sm dt{font-size:13px;font-weight:600}.sm dd{margin:2px 0 0;color:var(--mu);white-space:pre-wrap}
+.ba{display:flex;gap:8px}.em p{color:var(--mu);margin:6px 0 16px}
+@media(max-width:700px){.st{grid-template-columns:1fr}.nv{display:none}.ty{grid-template-columns:1fr}.sc{grid-template-columns:repeat(5,1fr)}.lp{padding:28px 16px}}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="lg" viewBox="0 0 119 42"><path d="M8.3851 40.394C-2.78328 34.0299 -2.74884 7.70101 8.21193 1.51847C19.1727 -4.66408 41.9104 9.26554 41.9104 21.1043C41.9104 32.943 19.5535 46.7581 8.3851 40.394Z" fill="#FC794B"/>
+<path d="M7.87672 16.4021C10.4352 16.4021 12.1123 18.4601 12.1123 20.9297C12.1123 21.0755 12.1037 21.2127 12.0952 21.3499C12.0695 21.5985 11.9155 21.71 11.6845 21.71H5.30765C5.58883 23.1155 6.6324 23.8366 7.93662 23.8366C8.74951 23.8366 9.42549 23.4936 9.79342 23.0134C9.93033 22.8676 10.0587 22.7819 10.264 22.7819L11.3593 22.7733C11.6417 22.7733 11.7957 22.9448 11.6845 23.1849C11.0598 24.5826 9.65652 25.423 7.91095 25.423C5.18136 25.423 3.39301 23.485 3.39301 20.9125C3.39301 18.3743 5.19847 16.4021 7.87672 16.4021ZM5.30064 20.1837H10.2531C10.0106 18.7233 8.96993 18.0914 7.86834 18.0914C6.48831 18.0914 5.55221 18.9007 5.30064 20.1837ZM21.7533 16.625C22.0015 16.625 22.1384 16.7622 22.1384 17.0109V24.8142C22.1384 25.0628 22.0015 25.2 21.7533 25.2H20.6752C20.427 25.2 20.2901 25.0628 20.2901 24.8142V23.9694C19.6426 24.8696 18.636 25.423 17.2869 25.423C14.9595 25.423 13.0342 23.4593 13.0342 20.9125C13.0342 18.3658 14.9595 16.4021 17.2869 16.4021C18.636 16.4021 19.6426 16.9555 20.2901 17.8557V17.0109C20.2901 16.7622 20.427 16.625 20.6752 16.625H21.7533V16.625ZM17.5862 23.6565C19.1264 23.6565 20.2901 22.5075 20.2901 20.9125C20.2901 19.3176 19.1264 18.1685 17.5862 18.1685C16.046 18.1685 14.8823 19.3176 14.8823 20.9125C14.8823 22.5075 16.046 23.6565 17.5862 23.6565ZM25.6956 19.0346C25.6956 20.7582 30.4446 19.5148 30.4446 22.7905C30.4446 24.4797 28.9728 25.423 27.0818 25.423C25.3277 25.423 23.9329 24.5826 23.7447 22.9534C23.719 22.6876 23.873 22.5504 24.1212 22.5504H25.1822C25.4132 22.5504 25.5074 22.679 25.5929 22.8934C25.7384 23.5108 26.3374 23.7594 27.0818 23.7594C27.9803 23.7594 28.5963 23.4422 28.5963 22.7905C28.5963 21.084 23.8474 22.3017 23.8474 19.0346C23.8474 17.3625 25.3191 16.4021 27.0818 16.4021C28.6819 16.4021 30.0595 17.2424 30.2478 18.8717C30.2735 19.1375 30.1194 19.2747 29.8713 19.2747H28.8103C28.5792 19.2747 28.4851 19.1461 28.3995 18.9231C28.2626 18.3143 27.6893 18.0656 27.0818 18.0656C26.3117 18.0656 25.6956 18.3829 25.6956 19.0346ZM36.9025 16.9423C36.971 16.7279 37.125 16.625 37.3389 16.625H38.5112C38.785 16.625 38.9219 16.788 38.8278 17.0624L34.9687 28.3213C34.9003 28.5357 34.7377 28.63 34.5238 28.63H33.3515C33.0777 28.63 32.9408 28.4671 33.0349 28.1927L34.0959 25.0971L30.9385 17.0709C30.8358 16.8051 30.9556 16.625 31.238 16.625H32.4017C32.6156 16.625 32.7611 16.7194 32.8381 16.9252L35.0201 22.5332L36.9025 16.9423Z" fill="white"/>
+<path d="M52.6256 16.6251C52.8738 16.6248 53.0107 16.762 53.0107 17.0106V24.8139C53.0107 27.5579 50.8544 28.8527 48.6639 28.8527C46.636 28.8527 44.7192 27.7465 44.4711 25.9029C44.454 25.6371 44.608 25.4999 44.8562 25.4999H45.9429C46.1739 25.4999 46.2851 25.6199 46.3536 25.8429C46.5589 26.5203 47.3633 27.172 48.6639 27.172C50.2726 27.172 51.1967 26.2973 51.1967 24.8139V23.7627C50.5505 24.678 49.5321 25.2514 48.1589 25.2514C45.8314 25.2514 43.9062 23.2877 43.9062 20.8267C43.9062 18.3656 45.8314 16.402 48.1589 16.402C49.5321 16.402 50.5505 16.9753 51.1967 17.8906V17.011C51.1967 16.7623 51.3336 16.6251 51.5817 16.6251H52.6256ZM48.4756 23.519C50.033 23.519 51.1967 22.37 51.1967 20.8265C51.1967 19.283 50.033 18.134 48.4756 18.134C46.9183 18.134 45.7546 19.283 45.7546 20.8265C45.7546 22.37 46.9183 23.519 48.4756 23.519ZM58.9895 16.4021C61.5479 16.4021 63.225 18.4601 63.225 20.9297C63.225 21.0755 63.2165 21.2127 63.2079 21.3499C63.1823 21.5986 63.0282 21.7101 62.7972 21.7101H56.4204C56.7016 23.1155 57.7452 23.8367 59.0494 23.8367C59.8623 23.8367 60.5382 23.4937 60.9062 23.0135C61.0431 22.8677 61.1714 22.7819 61.3768 22.7819L62.4721 22.7734C62.7544 22.7734 62.9084 22.9449 62.7972 23.185C62.1726 24.5827 60.7693 25.423 59.0237 25.423C56.2941 25.423 54.5058 23.4851 54.5058 20.9126C54.5058 18.3744 56.3112 16.4021 58.9895 16.4021ZM56.4134 20.1837H61.3658C61.1233 18.7234 60.0827 18.0914 58.9811 18.0914C57.6011 18.0914 56.665 18.9007 56.4134 20.1837ZM68.8958 16.4021C70.4873 16.4021 71.7195 17.6198 71.7195 19.6778V24.8142C71.7195 25.0629 71.5826 25.2001 71.3344 25.2001H70.2563C70.0082 25.2001 69.8712 25.0629 69.8712 24.8142V19.7893C69.8712 18.6831 69.2038 18.1343 68.3054 18.1343C67.3385 18.1343 66.4657 18.7088 66.4657 20.278V24.8142C66.4657 25.0629 66.3288 25.2001 66.0806 25.2001H65.0025C64.7543 25.2001 64.6174 25.0629 64.6174 24.8142V17.011C64.6174 16.7623 64.7543 16.6251 65.0025 16.6251H66.0806C66.3288 16.6251 66.4657 16.7623 66.4657 17.011V17.596C67.0136 16.7614 67.8498 16.4021 68.8958 16.4021ZM77.4844 16.4021C80.0428 16.4021 81.7199 18.4601 81.7199 20.9297C81.7199 21.0755 81.7114 21.2127 81.7028 21.3499C81.6771 21.5986 81.5231 21.7101 81.2921 21.7101H74.9153C75.1965 23.1155 76.24 23.8367 77.5442 23.8367C78.3571 23.8367 79.0331 23.4937 79.4011 23.0135C79.538 22.8677 79.6663 22.7819 79.8717 22.7819L80.9669 22.7734C81.2493 22.7734 81.4033 22.9449 81.2921 23.185C80.6674 24.5827 79.2641 25.423 77.5186 25.423C74.789 25.423 73.0006 23.4851 73.0006 20.9126C73.0006 18.3744 74.8061 16.4021 77.4844 16.4021ZM74.9083 20.1837H79.8607C79.6182 18.7234 78.5776 18.0914 77.476 18.0914C76.0959 18.0914 75.1598 18.9007 74.9083 20.1837ZM87.0313 16.4965C87.2878 16.4622 87.4247 16.6165 87.4247 16.8652V18.0828C87.4247 18.3229 87.322 18.4601 87.1423 18.4601C86.0214 18.4859 84.9604 19.1033 84.9604 20.7925V24.8142C84.9604 25.0629 84.8235 25.2001 84.5753 25.2001H83.4972C83.249 25.2001 83.1121 25.0629 83.1121 24.8142V17.011C83.1121 16.7623 83.249 16.6251 83.4972 16.6251H84.5753C84.8235 16.6251 84.9604 16.7623 84.9604 17.011V17.9108C85.413 17.0045 86.1612 16.5899 87.0313 16.4965ZM96.8691 17.011V24.8142C96.8691 25.0629 96.7322 25.2001 96.4841 25.2001H95.4059C95.1578 25.2001 95.0209 25.0629 95.0209 24.8142V23.9694C94.3733 24.8696 93.3667 25.423 92.0176 25.423C89.6902 25.423 87.765 23.4594 87.765 20.9126C87.765 18.3658 89.6902 16.4021 92.0176 16.4021C93.3667 16.4021 94.3733 16.9556 95.0209 17.8558V17.011C95.0209 16.7623 95.1578 16.6251 95.4059 16.6251H96.4841C96.7322 16.6251 96.8691 16.7623 96.8691 17.011ZM92.3169 23.6566C93.8572 23.6566 95.0209 22.5075 95.0209 20.9126C95.0209 19.3176 93.8572 18.1686 92.3169 18.1686C90.7767 18.1686 89.613 19.3176 89.613 20.9126C89.613 22.5075 90.7767 23.6566 92.3169 23.6566ZM102.685 16.6251C102.933 16.6251 103.07 16.7623 103.07 17.011V18.0228C103.07 18.2715 102.933 18.4087 102.685 18.4087H101.496V24.8142C101.496 25.0629 101.359 25.2001 101.111 25.2001H100.033C99.7846 25.2001 99.6477 25.0629 99.6477 24.8142V18.4087H98.4497C98.2016 18.4087 98.0647 18.2715 98.0647 18.0228V17.011C98.0647 16.7623 98.2016 16.6251 98.4497 16.6251H99.6477V14.267C99.6477 14.0183 99.7846 13.8811 100.033 13.8811H101.111C101.359 13.8811 101.496 14.0183 101.496 14.267V16.6251H102.685ZM108.057 25.423C105.549 25.423 103.539 23.4594 103.539 20.9126C103.539 18.3658 105.549 16.4021 108.057 16.4021C110.564 16.4021 112.575 18.3658 112.575 20.9126C112.575 23.4594 110.564 25.423 108.057 25.423ZM108.057 23.6223C109.563 23.6223 110.726 22.4732 110.726 20.9126C110.726 19.3519 109.563 18.2029 108.057 18.2029C106.551 18.2029 105.387 19.3519 105.387 20.9126C105.387 22.4732 106.551 23.6223 108.057 23.6223ZM117.98 16.4965C118.237 16.4622 118.373 16.6165 118.373 16.8652V18.0828C118.373 18.3229 118.271 18.4601 118.091 18.4601C116.97 18.4859 115.909 19.1033 115.909 20.7925V24.8142C115.909 25.0629 115.772 25.2001 115.524 25.2001H114.446C114.198 25.2001 114.061 25.0629 114.061 24.8142V17.011C114.061 16.7623 114.198 16.6251 114.446 16.6251H115.524C115.772 16.6251 115.909 16.7623 115.909 17.011V17.9108C116.362 17.0045 117.11 16.5899 117.98 16.4965Z" fill="black"/></symbol>
+<symbol id="tr" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6.5 7l1 13h9l1-13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol></svg>
+<header class="hd"><svg class="lg" role="img" aria-label="Easygenerator"><use href="#lg"/></svg><div><h1>Learner satisfaction survey</h1><small>Course: How to report a bug</small></div><div class="ha"><button class="b2" id="rs">Reset</button><button class="bt" id="sa">Save changes</button></div></header>
+<main>
+<div class="tabs" id="tb" role="tablist" aria-label="Prototype views">
+<button class="tab" role="tab" id="ta" aria-selected="true" aria-controls="pa">Admin control</button>
+<button class="tab" role="tab" id="tl" aria-selected="false" aria-controls="pl" tabindex="-1">Learner's view</button></div>
+<div id="pa" role="tabpanel" aria-labelledby="ta"><section class="cd"><div class="sth"><h2>Settings</h2></div><div class="st">
+<ul class="nv" aria-label="Settings sections"><li>Design</li><li>Login and results</li><li aria-current="page">Extra features</li><li>Scoring</li><li>Content and questions</li><li>Translations</li></ul>
+<div class="sb"><h3 class="bar">Extra features</h3>
+<label class="sw"><input type="checkbox" id="tg" role="switch" checked><i></i>Conduct learner satisfaction survey</label>
+<div id="op"><fieldset class="ty"><legend class="sr">Survey type</legend>
+<label class="op"><input type="radio" name="ty" value="basic">Basic</label>
+<label class="op"><input type="radio" name="ty" value="constructive">Constructive</label></fieldset>
+<div class="inf" id="bi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6M12 7.5v.01"/></svg><p>There will be one feedback box in Learner's portal after completion of course</p></div>
+<div id="cn"><div id="fl"></div><button class="add" id="ad">+ Add Feedback</button><p class="hint" id="ah"></p></div></div>
+</div></div></section></div>
+<div id="pl" role="tabpanel" aria-labelledby="tl" hidden><section class="cd lp" id="lv"></section></div>
+</main>
+<div id="ts" role="status">Survey settings saved</div>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ORD=n=>{const s=['th','st','nd','rd'],v=n%100;return n+(s[(v-20)%10]||s[v]||s[0])};
+const TR='<svg width="16" height="16" aria-hidden="true"><use href="#tr"/></svg>';
+const TROPHY='<svg viewBox="0 0 64 64" width="72" height="72" aria-hidden="true" fill="none" stroke="var(--ac)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10h24v14a12 12 0 0 1-24 0zM20 14h-8c0 8 3 12 8 12M44 14h8c0 8-3 12-8 12M32 36v10M26 46h12v8H26zM22 54h20"/></svg>';
+const CHECK='<svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+let S,uid=3;
+const init=()=>({on:true,ty:'basic',step:1,rt:0,an:{},qs:[{id:1,t:'What was the most interesting part of this course?'},{id:2,t:'How was the prospect targeting strategy?'},{id:3,t:'How was the campaign execution framework?'}]});
+/* ---------- Admin control ---------- */
+function ra(){const q=S.qs;$('#tg').checked=S.on;$('#op').hidden=!S.on;document.querySelector(`input[name=ty][value=${S.ty}]`).checked=true;$('#bi').hidden=S.ty!=='basic';$('#cn').hidden=S.ty!=='constructive';
+ $('#fl').innerHTML=q.map((x,i)=>`<div class="fr"><label for="q${x.id}">${ORD(i+1)} Feedback Title</label><div class="rw"><input class="mi" id="q${x.id}" data-id="${x.id}" value="${esc(x.t)}" placeholder="Write a feedback question"><button class="ic" data-del="${x.id}" aria-label="Delete ${ORD(i+1)} feedback title"${q.length<2?' disabled':''}>${TR}</button></div></div>`).join('');
+ $('#ad').disabled=q.length>=10;$('#ah').textContent=q.length>=10?'You can add up to 10 feedback questions.':q.length<2?'At least one feedback question is required.':''}
+$('#tg').onchange=e=>{S.on=e.target.checked;ra()};
+document.querySelectorAll('input[name=ty]').forEach(r=>r.onchange=()=>{S.ty=r.value;ra()});
+$('#fl').addEventListener('input',e=>{const q=S.qs.find(x=>x.id===+e.target.dataset.id);if(q)q.t=e.target.value});
+$('#fl').addEventListener('click',e=>{const b=e.target.closest('[data-del]');if(!b||S.qs.length<2)return;const i=S.qs.findIndex(x=>x.id===+b.dataset.del);S.qs.splice(i,1);ra();const m=document.querySelectorAll('#fl .mi');m[Math.min(i,m.length-1)].focus()});
+$('#ad').onclick=()=>{S.qs.push({id:++uid,t:''});ra();const m=document.querySelectorAll('#fl .mi');m[m.length-1].focus()};
+/* ---------- Learner's view ---------- */
+function rv(fc){const v=$('#lv');
+ if(!S.on){v.innerHTML=`<div class="em"><h2 data-f tabindex="-1">The satisfaction survey is turned off</h2><p>Learners go straight to their results after finishing the course.</p><button class="bt" id="go">Turn on in Admin control</button></div>`;return}
+ const qs=S.ty==='basic'?[{id:'basic',t:''}]:S.qs.filter(x=>x.t.trim());
+ const sq=i=>`<label class="sq"><input type="radio" name="rt" value="${i}"${S.rt===i?' checked':''}><span>${i}</span></label>`;
+ let h;
+ if(S.step===1)h=`${TROPHY}<h2 id="q1" data-f tabindex="-1">How would you rate your overall experience of taking this course?</h2><div class="sd"><div class="sc" role="radiogroup" aria-labelledby="q1" aria-describedby="ed">${[1,2,3,4,5,6,7,8,9,10].map(sq).join('')}</div><div class="ends" aria-hidden="true"><span>Poor</span><span>Excellent</span></div><span class="sr" id="ed">1 is poor, 10 is excellent.</span></div><button class="bt" id="nx"${S.rt?'':' disabled'}>Continue</button>`;
+ else if(S.step===2)h=`<div data-f tabindex="-1">You gave a rate of<div class="bg">${S.rt}</div></div><button class="lk" id="cr">Change rating</button><h2 id="q2">What is the most important reason for your score?</h2><div class="ff">${qs.length?qs.map(x=>`<div>${x.t?`<label for="a${x.id}">${esc(x.t)}</label>`:''}<textarea id="a${x.id}" data-a="${x.id}" rows="2" placeholder="Write here"${x.t?'':' aria-labelledby="q2"'}>${esc(S.an[x.id]||'')}</textarea></div>`).join(''):'<p>No feedback questions yet. Add one in Admin control.</p>'}</div><button class="bt" id="su">Submit</button>`;
+ else{const a=qs.filter(x=>(S.an[x.id]||'').trim());h=`<div class="ok">${CHECK}</div><h2 data-f tabindex="-1">Thank you for your feedback</h2><p>You rated this course <b>${S.rt}/10</b>.</p>${a.length?`<dl class="sm">${a.map(x=>`<div><dt>${esc(x.t||'Your feedback')}</dt><dd>${esc(S.an[x.id])}</dd></div>`).join('')}</dl>`:''}<div class="ba"><button class="b2" id="ed2">Edit response</button><button class="b2" id="so">Start over</button></div>`}
+ v.innerHTML=h;if(fc)v.querySelector('[data-f]').focus()}
+const LV=$('#lv');
+LV.addEventListener('change',e=>{if(e.target.name==='rt'){S.rt=+e.target.value;const n=$('#nx');if(n)n.disabled=false}});
+LV.addEventListener('click',e=>{const t=e.target;
+ if(t.name==='rt'&&e.detail>0){S.rt=+t.value;S.step=2;return rv(1)}   /* mouse click advances; keyboard uses Continue */
+ const id=t.id;
+ if(id==='nx'||id==='ed2'){S.step=2;rv(1)}else if(id==='cr'){S.step=1;rv(1)}else if(id==='su'){S.step=3;rv(1)}else if(id==='so'){S.step=1;S.rt=0;S.an={};rv(1)}else if(id==='go')tab('a',1)});
+LV.addEventListener('input',e=>{if(e.target.dataset.a)S.an[e.target.dataset.a]=e.target.value});
+/* ---------- Tabs ---------- */
+function tab(t,f){[['a','pa'],['l','pl']].forEach(([k,p])=>{const b=$('#t'+k),on=k===t;b.setAttribute('aria-selected',on);b.tabIndex=on?0:-1;$('#'+p).hidden=!on});if(t==='l')rv();if(f)$('#t'+t).focus()}
+$('#tb').addEventListener('click',e=>{const b=e.target.closest('[role=tab]');if(b)tab(b.id==='ta'?'a':'l')});
+$('#tb').addEventListener('keydown',e=>{const k=e.key;if(['ArrowLeft','ArrowRight','Home','End'].includes(k)){e.preventDefault();tab(k==='ArrowLeft'||k==='Home'?'a':'l',1)}});
+$('#sa').onclick=()=>{const t=$('#ts');t.classList.add('on');setTimeout(()=>t.classList.remove('on'),1800)};
+$('#rs').onclick=()=>{S=init();ra();tab('a')};
+S=init();ra();tab('a');
+</script></body></html>
